@@ -1,0 +1,40 @@
+
+{% extends 'user/home.html' %}
+{% block products %}
+
+   {% endblock products %}
+
+{% block bodyblock %}
+<h1 class="text-center">Login</h1>
+   
+<div class="container">
+ <div class="row">
+   <div class="col-12 d-flex justify-content-center">
+     <form method="POST" class="w-50">
+       
+       {% if  error_msg %}
+         
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+         {{error_msg}}
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+       </div>
+
+       {% endif %}
+
+
+       {% csrf_token %}
+       <div class="mb-3">
+         <label for="username" class="form-label">Username</label>
+         <input type="text" class="form-control" id="username" name="username">
+       </div>
+       <div class="mb-3">
+         <label for="password" class="form-label">Password</label>
+         <input type="password" class="form-control" id="password" name="password">
+       </div>
+       <input type="submit" class="btn btn-primary w-100" value="Login">
+       <p class="text-center mt-2">New user? <a href="/register"> click <a> to register </p>
+     </form>
+   </div>
+ </div>
+</div>
+{% endblock bodyblock %}

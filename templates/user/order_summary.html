@@ -1,0 +1,97 @@
+{% extends 'user/home.html' %}
+   {% block products %}
+   {% endblock products %}
+
+{% block bodyblock %}
+
+<div class="container">
+   <h1>Order Summary</h1>
+   <div class="row">
+      <!-- cart details  -->
+      <div class="col-8">
+         <hr>
+               <table class="table text-center border">
+                  <thead>
+                    <tr>
+                      <th scope="col">IMAGE</th>
+                      <th scope="col">NAME</th>
+                      <th scope="col">PRICE</th>
+                      <th scope="col">QUANTITY</th>
+                      <th scope="col">TOTAL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     {% for product in products %}  
+                    <tr>
+                      <th><img src="http://127.0.0.1:8000/dashboard/media/{{product.pid.image}}" alt="" height="50px" width="50px"></th>
+                      <td>{{product.pid.name}}</td>
+                      <td>&#x20b9; {{product.pid.price}}</td>
+                      <td>{{product.quantity}}</td>
+                      <td>&#x20b9; {% widthratio product.quantity 1 product.pid.price %}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+      </div>  
+
+
+
+      <!-- total items and price details  -->
+      <div class="col-4 border h-50 p-3">
+         <h1 class="bg-warning">Hello, {{user.username|title}}</h1>
+         <hr>
+         <h2>Total Items : {{total_items}}</h2>
+         <h3>Total Price : &#x20b9; {{total_price}}</h3>
+        
+         <a href="/cart" class="btn btn-success w-100 mt-3">update cart</a>
+         <a id="rzp-button1" class="btn btn-success w-100 mt-3">make payment</a>
+      </div>
+   </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_XRjX6qJ69ajxxs", // Enter the Key ID generated from the Dashboard
+    "amount": "{% widthratio total_price 1 100 %}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Tejas Industries",
+    "description": "Ecommerce company",
+    "image": "https://miro.medium.com/v2/resize:fit:2400/1*pR5lQuNikI5gtwHA8OPZkA.jpeg",
+    "order_id": "{{id}}", //This is a sample Order ID. Pass the id obtained in the response of Step 1
+    "handler": function (response){
+        //alert(response.razorpay_payment_id);
+       // alert(response.razorpay_order_id);
+        //alert(response.razorpay_signature);
+
+        window.location.replace("/")
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+{% endblock bodyblock %}

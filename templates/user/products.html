@@ -1,0 +1,53 @@
+<div class="container mt-2">
+   <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+         <form class="d-flex" role="search" method="POST" action="/search/">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Product Name" name="product_name" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+      </div>
+      <div class="col-4"></div>
+   </div>
+</div>
+
+
+
+<div class="container mt-3">
+   {% if messages %}
+   {% for message in messages %}
+         {% if message.tags == 'error' %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+               {{message}}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+         {% else %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+               {{message}}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+         {% endif %}
+   {% endfor %}
+{% endif %}
+    <div class="row gy-3">
+        {% for product in products %}
+       <div class="col-3">
+        
+          <div class="card" style="width: 16rem;">
+             <img src="http://127.0.0.1:8000/dashboard/media/{{product.image}}" class="card-img-top p-5" alt="...">
+             <div class="card-body">
+               <h5 class="card-title">{{product.name}}</h5>
+               <h5 class="card-title">&#x20b9; {{product.price}}</h5>
+               <p class="card-text">{{product.description}}</p>
+               <div class="d-flex justify-content-between">
+                <a href="add-to-cart/{{product.id}}" class="btn btn-primary">Add to cart</a>
+                <a href="#" class="btn btn-warning ">View</a>
+               </div>
+             </div>
+             
+           </div>
+       </div>
+       {% endfor %}
+    </div>
+ </div>

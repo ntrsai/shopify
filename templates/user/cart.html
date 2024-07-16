@@ -1,0 +1,49 @@
+{% extends 'user/home.html' %}
+   {% block products %}
+
+   {% endblock products %}
+{% block bodyblock %}
+
+<div class="container">
+   <h1>Shopping Cart</h1>
+   <div class="row">
+      <!-- cart details  -->
+      <div class="col-8">
+         <hr>
+         
+         {% for product in products %}  
+         <div class="row">
+            <!-- display image  -->
+            <div class="col-4">
+               <img src="http://127.0.0.1:8000/dashboard/media/{{product.pid.image}}" alt="">
+            </div>
+            <!-- display product details  -->
+            <div class="col-8 mb-3">
+               <h1>{{product.pid.name}}</h1>
+               <p>{{product.pid.description}}</p>
+               <p>&#x20b9; {{product.pid.price}}</p>
+               <p>rating value</p>
+               <a href="/cart/dec/{{product.id}}" class="btn btn-danger">-</a>
+               <input type="number" value="{{product.quantity}}" class="text-center" disabled>
+               <a href="/cart/inc/{{product.id}}" class="btn btn-success">+</a>
+               <a href="/delete/{{product.id}}" class="btn btn-danger">delete</a>
+            </div>
+         </div>
+         <hr>
+         {% endfor %}
+         
+      </div>
+
+
+      <!-- total items and price details  -->
+      <div class="col-4 border h-50 p-3">
+         <h1 class="">Hello, {{user.username|title}}</h1>
+         <hr>
+         <h2>Total Items : {{total_items}}</h2>
+         <h3>Total Price : &#x20b9; {{total_price}}</h3>
+         <a href="" class="btn btn-primary w-100">Place order</a>
+      </div>
+   </div>
+</div>
+
+{% endblock bodyblock %}

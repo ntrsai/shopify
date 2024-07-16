@@ -1,0 +1,77 @@
+
+<style>
+
+    .table {
+        background-color: #000;
+        color: #fff;
+        border-radius: 50%;
+    }
+
+    .table thead {
+        background-color: #333;
+    }
+
+    .table-img {
+        width: 50px;
+        height: 50px;
+        transition: transform 0.3s ease;
+        /* border-radius: 25%; */
+    }
+
+    .table-img:hover {
+        transform: scale(2.5);
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .btn-update {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-delete {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+</style>
+</head>
+<body>
+<div class="container mt-5" >
+    <table class="table table-hover table-bordered text-center" style="background-color: #000;">
+        <thead >
+            <tr >
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Is Active</th>
+                <th scope="col">Image</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for added_products in products %}
+            <tr>
+                <th scope="row">{{added_products.id}}</th>
+                <td>{{added_products.name}}</td>
+                <td>{{added_products.price}}</td>
+                <td>{{added_products.category}}</td>
+                <td>{{added_products.description}}</td>
+                <td>{{added_products.quantity}}</td>
+                <td>{{added_products.is_active}}</td>
+                <td><img src="media/{{added_products.image}}" alt="{{added_products.name}}" class="table-img"></td>
+                <td>
+                    <a href="/dashboard/update/{{added_products.id}}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i> Update</a>
+                    <a href="/dashboard/delete/{{added_products.id}}" class="btn btn-danger"><i class="bi bi-trash3"></i> Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

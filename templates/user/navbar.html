@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg navbar-dark " style="background-color: green;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><i class="bi bi-shop" style="color: purple; font-size: 25px;"></i> SHOPIFY</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="/category/shoe">Shoes</a>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item" href="/category/cloth">Clothes</a>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item" href="/category/mobile">Mobiles</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="/sort/desc">High to Low</a>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item" href="/sort/asc">Low to high</a>
+            </li>
+      </ul>
+
+    </div>
+
+    {% if not user.is_authenticated  %}
+          <div class="navbar navbar-dark">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                  </li>
+              </ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/register">Register</a>
+              </li>
+          </ul>
+    {% else %}
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/logout">logout</a>
+              </li>
+          </ul>
+
+          <a href="/cart" type="button" class="btn btn-primary position-relative me-3">
+            <i class="bi bi-cart3"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{cart_items}}
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </a>
+    {% endif %}
+    
+
+       
+
+        
+    </div>
+  </div>
+  
+</nav>
